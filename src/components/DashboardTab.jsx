@@ -679,10 +679,11 @@ const DashboardTab = ({ user, stats, loading, proposals, getProposalVoteTotals, 
   return (
     
     <div>
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold dark:text-white">Vote</h2>
-        <p className="text-gray-500 dark:text-gray-400">Cast your votes on active proposals</p>
-      </div>
+     <div className="mb-6">
+  <h2 className="text-xl font-semibold dark:text-white">Dashboard</h2>
+  <p className="text-gray-500 dark:text-gray-400">Snapshot of important data</p>
+</div>
+
    
    {/* Governance Parameters Section */}
    <div className="bg-white dark:bg-gray-800 rounded-lg shadow mb-6 border-l-4 border-indigo-500 dark:border-indigo-400 transition-all duration-300  mx-0 px-2 relative overflow-hidden" >
