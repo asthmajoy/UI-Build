@@ -1904,7 +1904,7 @@ const VoteTab = ({
           )}
           </>
         ) : (
-          <div className="text-center py-12 text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md  w-full min-w-full mx-0 px-2 relative overflow-hidden" style={{width: '100vw', maxWidth: '100%', marginLeft: 5, marginRight: -60}}>
+          <div className="text-center py-12 text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md  w-full min-w-full mx-0 px-2 relative overflow-hidden" style={{width: '76vw', maxWidth: '76%', marginLeft: 5, marginRight: -60}}>
             No proposals found for this filter
           </div>
         )}
