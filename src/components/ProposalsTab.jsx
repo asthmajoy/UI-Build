@@ -3009,12 +3009,12 @@ const renderTransactionNotifications = () => {
                       {proposal.type === PROPOSAL_TYPES.SIGNALING && (
                         <div className="mt-4 bg-gray-50 dark:bg-gray-700/50 p-4 rounded">
                           <p className="text-sm text-gray-600 dark:text-gray-400">
-                            <span className="font-medium">Binding Community Vote</span> - This proposal represents a formal decision that, while not executing code directly, establishes official consensus on governance matters.
+                            <span className="font-medium">Binding Community Vote</span> – A formal decision that, while not executing code, establishes official governance consensus.
                           </p>
                           <div className="mt-2 flex items-center text-sm">
                             <Shield className="h-4 w-4 text-indigo-500 mr-2" />
                             <span className="text-gray-600 dark:text-gray-400">
-                              The outcome of this vote is recorded on-chain and binding for future governance actions.
+                              The outcome of this vote is recorded on-chain and binding for future actions.
                             </span>
                           </div>
                         </div>
