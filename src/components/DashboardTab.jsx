@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { Clock, ArrowRight, Users, FileText, Layers, Settings, ChevronDown, ChevronUp } from 'lucide-react';
+import { Clock, ArrowRight, RefreshCw, Users, FileText, Layers, Settings, ChevronDown, ChevronUp } from 'lucide-react';
 import { formatPercentage, formatCountdown } from '../utils/formatters';
 import { formatTokenAmount } from '../utils/tokenFormatters';
 import Loader from './Loader';
@@ -586,7 +586,7 @@ const DashboardTab = ({ user, stats, loading, proposals, getProposalVoteTotals, 
         setIsRefreshing(false);
       }
     }
-  }, [directStats.lastUpdated, onRefresh, proposals, countProposalsWithCache, fetchVoteDataWithCache]);
+  }, [directStats.lastUpdated, onRefresh, proposals]);
 
   // Set mounted flag on initial render and cleanup on unmount
   useEffect(() => {
@@ -683,6 +683,7 @@ const DashboardTab = ({ user, stats, loading, proposals, getProposalVoteTotals, 
         <h2 className="text-xl font-semibold dark:text-white">Vote</h2>
         <p className="text-gray-500 dark:text-gray-400">Cast your votes on active proposals</p>
       </div>
+   
    {/* Governance Parameters Section */}
    <div className="bg-white dark:bg-gray-800 rounded-lg shadow mb-6 border-l-4 border-indigo-500 dark:border-indigo-400 transition-all duration-300  mx-0 px-2 relative overflow-hidden" >
    {/* Hidden spacer to force full width - invisible but takes up space */}
@@ -909,6 +910,111 @@ const DashboardTab = ({ user, stats, loading, proposals, getProposalVoteTotals, 
       </div>
 	        </div>
 
+
+     
+     {/* Governance Stats */}
+     <div className="grid grid-cols-1 px-2 md:grid-cols-3 gap-6 mb-6">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2 text-center">DAO Overview</h3>
+          {directStats.loading && !directStats.lastUpdated ? (
+            <Loader size="small" text="Loading stats..." />
+          ) : (
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="flex flex-col items-start">
+                <p className="text-gray-500 dark:text-gray-400">Token Holders</p>
+                <p className="text-2xl font-bold dark:text-white flex items-center justify-start">
+                  <Users className="h-5 w-5 mr-2 text-blue-500 dark:text-blue-400" />
+                  {formatNumberDisplay(stats.totalHolders)}
+                </p>
+                {stats.totalHolders === 0 && <p className="text-xs text-orange-500 dark:text-orange-400"></p>}
+              </div>
+              <div className="flex flex-col items-end">
+                <p className="text-gray-500 dark:text-gray-400">Circulating</p>
+                <p className="text-2xl font-bold dark:text-white">{formatNumberDisplay(stats.circulatingSupply)}</p>
+                {stats.circulatingSupply === "0" && <p className="text-xs text-orange-500 dark:text-orange-400"></p>}
+              </div>
+              <div className="flex flex-col items-start">
+                <p className="text-gray-500 dark:text-gray-400">Active <br /> Proposals</p>
+                <p className="text-2xl font-bold dark:text-white flex items-center justify-start">
+                  <FileText className="h-5 w-5 mr-2 text-green-500 dark:text-green-400" />
+                  {directStats.activeProposalsCount}
+                </p>
+              </div>
+              <div className="flex flex-col items-end">
+                <p className="text-gray-500 dark:text-gray-400">Total <br /> Proposals</p>
+                <p className="text-2xl font-bold dark:text-white flex items-center justify-end">
+                  <Layers className="h-5 w-5 mr-2 text-purple-500 dark:text-purple-400" />
+                  {directStats.totalProposalsCount}
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2 text-center">Your Account</h3>
+        <div className="space-y-3">
+            <div>
+              <p className="text-gray-500 dark:text-gray-400">Balance</p>
+              <div className="relative">
+                <p className="text-xl md:text-2xl font-bold overflow-hidden text-ellipsis whitespace-nowrap dark:text-white">
+                  {formatDynamicDecimals(user.balance)} <span className="text-sm md:text-base font-medium">JST</span>
+                </p>
+              </div>
+            </div>
+            <div>
+              <p className="text-gray-500 dark:text-gray-400">Voting Power</p>
+              <div className="relative">
+                <p className="text-xl md:text-2xl font-bold overflow-hidden text-ellipsis whitespace-nowrap dark:text-white">
+                  {formatDynamicDecimals(user.votingPower)} <span className="text-sm md:text-base font-medium">JST</span>
+                </p>
+              </div>
+            </div>
+            
+            <div className="mt-4">
+              <button 
+                className="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 text-sm font-medium flex items-center"
+                onClick={() => document.querySelector('[data-tab="delegation"]')?.click()}
+              >
+                View Delegation Details
+                <ArrowRight className="h-4 w-4 ml-1" />
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2 text-center">Governance Health</h3>
+          <div className="space-y-4">
+            <div>
+              <div className="flex justify-between mb-1">
+                <p className="text-gray-500 dark:text-gray-400 text-sm">Participation Rate</p>
+                <p className="text-sm font-medium dark:text-gray-300">{stats.formattedParticipationRate || formatPercentage(stats.participationRate)}</p>
+              </div>
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div className="bg-green-500 dark:bg-green-600 h-2 rounded-full" style={{ width: `${Math.min(stats.participationRate * 100, 100)}%` }}></div>
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-between mb-1">
+                <p className="text-gray-500 dark:text-gray-400 text-sm">Delegation Rate</p>
+                <p className="text-sm font-medium dark:text-gray-300">{stats.formattedDelegationRate || formatPercentage(stats.delegationRate)}</p>
+              </div>
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div className="bg-blue-500 dark:bg-blue-600 h-2 rounded-full" style={{ width: `${Math.min(stats.delegationRate * 100, 100)}%` }}></div>
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-between mb-1">
+                <p className="text-gray-500 dark:text-gray-400 text-sm">Proposal Success Rate</p>
+                <p className="text-sm font-medium dark:text-gray-300">{formattedSuccessRate}</p>
+              </div>
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div className="bg-indigo-500 dark:bg-indigo-600 h-2 rounded-full" style={{ width: `${Math.min(proposalSuccessRate * 100, 100)}%` }}></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       
       {/* Error Message (if any) */}
       {stats.errorMessage && (
