@@ -1,0 +1,67 @@
+{
+  "financialMetrics": {
+    "totalFundsDistributed": "0",
+    "estimatedUsdValue": 0,
+    "treasuryGrowthRate": "0",
+    "treasuryGrowthChange": "0",
+    "fundsDistributedTrend": "up",
+    "fundsDistributedChange": "0",
+    "circulatingSupply": "0",
+    "totalSupply": "0",
+    "tokenContract": "0xb0bCE9452329EC979CF7BA06801dDa070FF8b835"
+  },
+  "governanceMetrics": {
+    "activeInitiatives": 0,
+    "successRate": "0%",
+    "activeProposals": 0,
+    "totalProposals": 0,
+    "avgExecutionTime": "0",
+    "initiativeDistribution": {
+      "housing": 0,
+      "family": 0,
+      "immigration": 0,
+      "consumer": 0
+    }
+  },
+  "communityMetrics": {
+    "totalMembers": 0,
+    "newMembersLastMonth": 0,
+    "membershipTrend": "up",
+    "participationRate": "0%",
+    "giniCoefficient": "0",
+    "delegationStabilityIndex": 0,
+    "forumPosts": 0,
+    "discordMembers": 0
+  },
+  "impactMetrics": {
+    "casesResolved": {
+      "total": 0,
+      "quarterly": {
+        "q1": 0,
+        "q2": 0,
+        "q3": 0,
+        "q4": 0
+      },
+      "byType": {
+        "housing": 0,
+        "family": 0,
+        "immigration": 0,
+        "consumer": 0
+      }
+    },
+    "externalAnalysis": {
+      "evictionCrisis": {
+        "description": "Eviction filings have increased by 24% in target communities"
+      },
+      "immigrationBacklog": {
+        "description": "Current immigration case backlog is 14 months on average"
+      }
+    },
+    "impactAssessment": {
+      "monetaryBenefit": {
+        "total": 0,
+        "average": 0
+      }
+    }
+  }
+}
