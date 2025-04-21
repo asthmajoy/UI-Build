@@ -197,6 +197,7 @@ const DashboardTab = ({ user, stats, loading, proposals, getProposalVoteTotals, 
         expired: 0
       };
       
+      // First, try to use the analyticsHelper contract if available
       // This is much faster as it can return all data in a single call
       if (contracts.analyticsHelper) {
         try {
@@ -721,46 +722,48 @@ const DashboardTab = ({ user, stats, loading, proposals, getProposalVoteTotals, 
     </div>
   )}
 
-  {/* Collapsible content with smooth transition */}
-	    <div 
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${
-          isGovExpanded ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+    {/* Collapsible Governance Details */}
+      <div 
+        className={`overflow-hidden transition-all duration-500 ease-in-out ${
+          isGovExpanded ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
         {/* Core Parameters Section */}
         <div className="border-b border-gray-100 dark:border-gray-700">
           <div 
-            className="px-6 py-3 bg-white dark:bg-gray-800 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors relative"
+            className="px-6 py-4 bg-white dark:bg-gray-800 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-300 relative group"
             onClick={() => setIsCoreSectionExpanded(!isCoreSectionExpanded)}
           >
             <div className="flex items-center justify-between relative">
               <div className="flex items-center">
-                {/* Animated indicator with ultra-smooth animation */}
+                {/* Animated indicator with rounded caps and smoother transition */}
                 <div 
-                  className={`absolute left-0
+                  className={`absolute left-0 transition-all duration-300 ease-in-out 
                     ${isCoreSectionExpanded 
-                      ? 'w-2 h-2 rounded-full bg-indigo-400/70 dark:bg-indigo-500/50 top-1/2 -translate-y-1/2 -translate-x-4' 
-                      : 'h-0.5 bg-indigo-400/30 dark:bg-indigo-500/30 bottom-0 translate-y-2 section-underline'}`}
-                  data-section="core"
+                      ? 'w-2 h-2 rounded-full bg-indigo-400/70 dark:bg-indigo-500/50 top-1/2 -translate-y-1/2 -translate-x-3' 
+                      : 'w-full h-1 rounded-full bg-indigo-400/30 dark:bg-indigo-500/30 bottom-0 origin-left'}`}
                   style={{
+                    transformOrigin: 'left center',
                     animationName: isCoreSectionExpanded ? 'lineToPoint' : 'pointToLine',
-                    animationDuration: '800ms',
+                    animationDuration: isCoreSectionExpanded ? '650ms' : '500ms',
                     animationFillMode: 'forwards',
                     animationTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
                   }}
                 />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 relative core-section-text">Core Parameters</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 relative pl-0 transition-colors duration-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                  Core Parameters
+                </span>
               </div>
               {isCoreSectionExpanded ? 
-                <ChevronUp className="h-4 w-4 text-gray-500 dark:text-gray-400" /> : 
-                <ChevronDown className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                <ChevronUp className="h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400" /> : 
+                <ChevronDown className="h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400" />
               }
             </div>
           </div>
           
           <div 
-            className={`bg-gray-50 dark:bg-gray-800/50 px-6 py-2 space-y-2 transition-all duration-300 ease-in-out overflow-hidden ${
-              isCoreSectionExpanded ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0 py-0'
+            className={`bg-gray-50 dark:bg-gray-800/50 px-6 py-2 space-y-2 transition-all duration-500 ease-in-out overflow-hidden ${
+              isCoreSectionExpanded ? 'max-h-[250px] opacity-100' : 'max-h-0 opacity-0 py-0'
             }`}
           >
             <div className="flex items-center justify-between border-b border-dashed border-gray-200 dark:border-gray-700 pb-2">
@@ -788,37 +791,39 @@ const DashboardTab = ({ user, stats, loading, proposals, getProposalVoteTotals, 
         {/* Threat Levels Section */}
         <div className="border-b border-gray-100 dark:border-gray-700">
           <div 
-            className="px-6 py-3 bg-white dark:bg-gray-800 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors relative"
+            className="px-6 py-4 bg-white dark:bg-gray-800 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-300 relative group"
             onClick={() => setIsThreatSectionExpanded(!isThreatSectionExpanded)}
           >
             <div className="flex items-center justify-between relative">
               <div className="flex items-center">
-                {/* Animated indicator with ultra-smooth animation */}
+                {/* Animated indicator with rounded caps and smoother transition */}
                 <div 
-                  className={`absolute left-0
+                  className={`absolute left-0 transition-all duration-300 ease-in-out 
                     ${isThreatSectionExpanded 
-                      ? 'w-2 h-2 rounded-full bg-amber-400/70 dark:bg-amber-500/50 top-1/2 -translate-y-1/2 -translate-x-4' 
-                      : 'h-0.5 bg-amber-400/30 dark:bg-amber-500/30 bottom-0 translate-y-2 section-underline'}`}
-                  data-section="threat"
+                      ? 'w-2 h-2 rounded-full bg-amber-400/70 dark:bg-amber-500/50 top-1/2 -translate-y-1/2 -translate-x-3' 
+                      : 'w-full h-1 rounded-full bg-amber-400/30 dark:bg-amber-500/30 bottom-0 origin-left'}`}
                   style={{
+                    transformOrigin: 'left center',
                     animationName: isThreatSectionExpanded ? 'lineToPoint' : 'pointToLine',
-                    animationDuration: '800ms',
+                    animationDuration: isThreatSectionExpanded ? '650ms' : '500ms',
                     animationFillMode: 'forwards',
                     animationTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
                   }}
                 />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 relative threat-section-text">Threat Levels</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 relative pl-0 transition-colors duration-300 group-hover:text-amber-600 dark:group-hover:text-amber-400">
+                  Threat Levels
+                </span>
               </div>
               {isThreatSectionExpanded ? 
-                <ChevronUp className="h-4 w-4 text-gray-500 dark:text-gray-400" /> : 
-                <ChevronDown className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                <ChevronUp className="h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300 group-hover:text-amber-600 dark:group-hover:text-amber-400" /> : 
+                <ChevronDown className="h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300 group-hover:text-amber-600 dark:group-hover:text-amber-400" />
               }
             </div>
           </div>
           
           <div 
-            className={`bg-gray-50 dark:bg-gray-800/50 px-6 py-2 space-y-2 transition-all duration-300 ease-in-out overflow-hidden ${
-              isThreatSectionExpanded ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0 py-0'
+            className={`bg-gray-50 dark:bg-gray-800/50 px-6 py-2 space-y-2 transition-all duration-500 ease-in-out overflow-hidden ${
+              isThreatSectionExpanded ? 'max-h-[250px] opacity-100' : 'max-h-0 opacity-0 py-0'
             }`}
           >
             <div className="flex items-center justify-between border-b border-dashed border-gray-200 dark:border-gray-700 pb-2">
@@ -841,37 +846,39 @@ const DashboardTab = ({ user, stats, loading, proposals, getProposalVoteTotals, 
         {/* Refund Percentages Section */}
         <div>
           <div 
-            className="px-6 py-3 bg-white dark:bg-gray-800 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors relative"
+            className="px-6 py-4 bg-white dark:bg-gray-800 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-300 relative group"
             onClick={() => setIsRefundSectionExpanded(!isRefundSectionExpanded)}
           >
             <div className="flex items-center justify-between relative">
               <div className="flex items-center">
-                {/* Animated indicator with ultra-smooth animation */}
+                {/* Animated indicator with rounded caps and smoother transition */}
                 <div 
-                  className={`absolute left-0
+                  className={`absolute left-0 transition-all duration-300 ease-in-out 
                     ${isRefundSectionExpanded 
-                      ? 'w-2 h-2 rounded-full bg-purple-400/70 dark:bg-purple-500/50 top-1/2 -translate-y-1/2 -translate-x-4' 
-                      : 'h-0.5 bg-purple-400/30 dark:bg-purple-500/30 bottom-0 translate-y-2 section-underline'}`}
-                  data-section="refund"
+                      ? 'w-2 h-2 rounded-full bg-purple-400/70 dark:bg-purple-500/50 top-1/2 -translate-y-1/2 -translate-x-3' 
+                      : 'w-full h-1 rounded-full bg-purple-400/30 dark:bg-purple-500/30 bottom-0 origin-left'}`}
                   style={{
+                    transformOrigin: 'left center',
                     animationName: isRefundSectionExpanded ? 'lineToPoint' : 'pointToLine',
-                    animationDuration: '800ms',
+                    animationDuration: isRefundSectionExpanded ? '650ms' : '500ms',
                     animationFillMode: 'forwards',
                     animationTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
                   }}
                 />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 relative refund-section-text">Refund Percentages</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 relative pl-0 transition-colors duration-300 group-hover:text-purple-600 dark:group-hover:text-purple-400">
+                  Refund Percentages
+                </span>
               </div>
               {isRefundSectionExpanded ? 
-                <ChevronUp className="h-4 w-4 text-gray-500 dark:text-gray-400" /> : 
-                <ChevronDown className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                <ChevronUp className="h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300 group-hover:text-purple-600 dark:group-hover:text-purple-400" /> : 
+                <ChevronDown className="h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300 group-hover:text-purple-600 dark:group-hover:text-purple-400" />
               }
             </div>
           </div>
           
           <div 
-            className={`bg-gray-50 dark:bg-gray-800/50 px-6 py-2 space-y-2 transition-all duration-300 ease-in-out overflow-hidden ${
-              isRefundSectionExpanded ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0 py-0'
+            className={`bg-gray-50 dark:bg-gray-800/50 px-6 py-2 space-y-2 transition-all duration-500 ease-in-out overflow-hidden ${
+              isRefundSectionExpanded ? 'max-h-[250px] opacity-100' : 'max-h-0 opacity-0 py-0'
             }`}
           >
             <div className="flex items-center justify-between border-b border-dashed border-gray-200 dark:border-gray-700 pb-2">
@@ -900,112 +907,8 @@ const DashboardTab = ({ user, stats, loading, proposals, getProposalVoteTotals, 
           </div>
         </div>
       </div>
-    </div>
+	        </div>
 
-     
-     {/* Governance Stats */}
-     <div className="grid grid-cols-1 px-2 md:grid-cols-3 gap-6 mb-6">
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2 text-center">DAO Overview</h3>
-          {directStats.loading && !directStats.lastUpdated ? (
-            <Loader size="small" text="Loading stats..." />
-          ) : (
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="flex flex-col items-start">
-                <p className="text-gray-500 dark:text-gray-400">Token Holders</p>
-                <p className="text-2xl font-bold dark:text-white flex items-center justify-start">
-                  <Users className="h-5 w-5 mr-2 text-blue-500 dark:text-blue-400" />
-                  {formatNumberDisplay(stats.totalHolders)}
-                </p>
-                {stats.totalHolders === 0 && <p className="text-xs text-orange-500 dark:text-orange-400"></p>}
-              </div>
-              <div className="flex flex-col items-end">
-                <p className="text-gray-500 dark:text-gray-400">Circulating</p>
-                <p className="text-2xl font-bold dark:text-white">{formatNumberDisplay(stats.circulatingSupply)}</p>
-                {stats.circulatingSupply === "0" && <p className="text-xs text-orange-500 dark:text-orange-400"></p>}
-              </div>
-              <div className="flex flex-col items-start">
-                <p className="text-gray-500 dark:text-gray-400">Active <br /> Proposals</p>
-                <p className="text-2xl font-bold dark:text-white flex items-center justify-start">
-                  <FileText className="h-5 w-5 mr-2 text-green-500 dark:text-green-400" />
-                  {directStats.activeProposalsCount}
-                </p>
-              </div>
-              <div className="flex flex-col items-end">
-                <p className="text-gray-500 dark:text-gray-400">Total <br /> Proposals</p>
-                <p className="text-2xl font-bold dark:text-white flex items-center justify-end">
-                  <Layers className="h-5 w-5 mr-2 text-purple-500 dark:text-purple-400" />
-                  {directStats.totalProposalsCount}
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2 text-center">Your Account</h3>
-        <div className="space-y-3">
-            <div>
-              <p className="text-gray-500 dark:text-gray-400">Balance</p>
-              <div className="relative">
-                <p className="text-xl md:text-2xl font-bold overflow-hidden text-ellipsis whitespace-nowrap dark:text-white">
-                  {formatDynamicDecimals(user.balance)} <span className="text-sm md:text-base font-medium">JST</span>
-                </p>
-              </div>
-            </div>
-            <div>
-              <p className="text-gray-500 dark:text-gray-400">Voting Power</p>
-              <div className="relative">
-                <p className="text-xl md:text-2xl font-bold overflow-hidden text-ellipsis whitespace-nowrap dark:text-white">
-                  {formatDynamicDecimals(user.votingPower)} <span className="text-sm md:text-base font-medium">JST</span>
-                </p>
-              </div>
-            </div>
-            
-            <div className="mt-4">
-              <button 
-                className="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 text-sm font-medium flex items-center"
-                onClick={() => document.querySelector('[data-tab="delegation"]')?.click()}
-              >
-                View Delegation Details
-                <ArrowRight className="h-4 w-4 ml-1" />
-              </button>
-            </div>
-          </div>
-        </div>
-        
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2 text-center">Governance Health</h3>
-          <div className="space-y-4">
-            <div>
-              <div className="flex justify-between mb-1">
-                <p className="text-gray-500 dark:text-gray-400 text-sm">Participation Rate</p>
-                <p className="text-sm font-medium dark:text-gray-300">{stats.formattedParticipationRate || formatPercentage(stats.participationRate)}</p>
-              </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div className="bg-green-500 dark:bg-green-600 h-2 rounded-full" style={{ width: `${Math.min(stats.participationRate * 100, 100)}%` }}></div>
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between mb-1">
-                <p className="text-gray-500 dark:text-gray-400 text-sm">Delegation Rate</p>
-                <p className="text-sm font-medium dark:text-gray-300">{stats.formattedDelegationRate || formatPercentage(stats.delegationRate)}</p>
-              </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div className="bg-blue-500 dark:bg-blue-600 h-2 rounded-full" style={{ width: `${Math.min(stats.delegationRate * 100, 100)}%` }}></div>
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between mb-1">
-                <p className="text-gray-500 dark:text-gray-400 text-sm">Proposal Success Rate</p>
-                <p className="text-sm font-medium dark:text-gray-300">{formattedSuccessRate}</p>
-              </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div className="bg-indigo-500 dark:bg-indigo-600 h-2 rounded-full" style={{ width: `${Math.min(proposalSuccessRate * 100, 100)}%` }}></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       
       {/* Error Message (if any) */}
       {stats.errorMessage && (
