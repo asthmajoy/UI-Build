@@ -680,13 +680,9 @@ const DashboardTab = ({ user, stats, loading, proposals, getProposalVoteTotals, 
     
     <div>
      <div className="mb-6">
-<<<<<<< HEAD
-  <h2 className="text-xl font-semibold dark:text-white">Dashboard</h2>
-  <p className="text-gray-500 dark:text-gray-400">Snapshot of important data</p>
-=======
+
   <h3 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">Dashboard</h3>
   <p className="text-gray-500 dark:text-gray-400">View important DAO mertics</p>
->>>>>>> d051713 (Initial commit or update)
 </div>
 
    
