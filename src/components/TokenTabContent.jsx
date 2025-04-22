@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   CoinsIcon,
   BarChart4,
@@ -185,6 +185,43 @@ const ProcessFlow = ({ steps }) => {
         );
       })}
     </div>
+  );
+};
+
+// Copy Button component with visual feedback
+const CopyButton = ({ textToCopy }) => {
+  const [copied, setCopied] = useState(false);
+  
+  // Memoize the copy function to prevent unnecessary re-renders
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(textToCopy);
+    setCopied(true);
+    
+    // Reset copied state after 2 seconds
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  }, [textToCopy]);
+  
+  return (
+    <button 
+      className={`p-1.5 rounded transition-all duration-200 flex-shrink-0 ${
+        copied 
+          ? 'bg-green-100 dark:bg-green-900/50 hover:bg-green-200 dark:hover:bg-green-800/50' 
+          : 'bg-indigo-100 dark:bg-indigo-900/50 hover:bg-indigo-200 dark:hover:bg-indigo-800/50'
+      }`}
+      onClick={handleCopy}
+      type="button"
+      aria-label={copied ? "Copied!" : "Copy to clipboard"}
+    >
+      {copied ? (
+        <Check className="h-4 w-4 text-green-600 dark:text-green-400" />
+      ) : (
+        <svg className="h-4 w-4 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+      )}
+    </button>
   );
 };
 
@@ -430,25 +467,17 @@ const TokenTabContent = ({ navigateToAppSection }) => {
                 <li><strong>Immediate Support:</strong> Your contribution immediately helps fund legal aid initiatives</li>
               </ul>
             </div>
-            <div className="pt-3">
-              <div className="font-mono text-xs sm:text-sm bg-white/80 dark:bg-gray-800/80 p-3 rounded-md inline-flex items-center border border-indigo-100 dark:border-indigo-900/30 shadow-sm max-w-full overflow-x-auto">
-                <div className="flex items-center">
-                  <span className="mr-2 whitespace-nowrap">Contract:</span>
-                  <span className="text-indigo-600 dark:text-indigo-400 mr-2 break-all">0xb0bCE9452329EC979CF7BA06801dDa070FF8b835</span>
-                  <button 
-                    className="bg-indigo-100 dark:bg-indigo-900/50 p-1.5 rounded hover:bg-indigo-200 dark:hover:bg-indigo-800/50 transition-colors flex-shrink-0"
-                    onClick={() => {
-                      navigator.clipboard.writeText('0xb0bCE9452329EC979CF7BA06801dDa070FF8b835');
-                    }}
-                    type="button"
-                  >
-                    <svg className="h-4 w-4 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
+			<div className="pt-3">
+			  <div className="font-mono text-xs sm:text-sm bg-white/80 dark:bg-gray-800/80 p-3 rounded-md inline-flex items-center border border-indigo-100 dark:border-indigo-900/30 shadow-sm max-w-full overflow-x-auto">
+				<div className="flex items-center">
+				  <span className="mr-2 whitespace-nowrap">Contract:</span>
+				  <span className="text-indigo-600 dark:text-indigo-400 mr-2 break-all">
+					{process.env.REACT_APP_TOKEN_ADDRESS || "Could not load token address!"}
+				  </span>
+				  <CopyButton textToCopy={process.env.REACT_APP_TOKEN_ADDRESS || "Could not load token address!"} />
+				</div>
+			  </div>
+			</div>
           </div>
         </div>
         <div className="bg-indigo-600 dark:bg-indigo-700 px-6 py-4">
@@ -549,11 +578,11 @@ const TokenTabContent = ({ navigateToAppSection }) => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
               <div className="bg-gradient-to-br from-purple-50 to-indigo-50/70 dark:from-purple-900/30 dark:to-indigo-900/20 p-4 rounded-lg border border-purple-100 dark:border-purple-900/30 shadow-sm">
                 <h5 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Legal Aid</h5>
-                <p className="text-xl font-semibold text-purple-600 dark:text-purple-400">70%</p>
+                <p className="text-xl font-semibold text-purple-600 dark:text-purple-400">80%</p>
               </div>
               <div className="bg-gradient-to-br from-blue-50 to-indigo-50/70 dark:from-blue-900/30 dark:to-indigo-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-900/30 shadow-sm">
                 <h5 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Protocol Development</h5>
-                <p className="text-xl font-semibold text-blue-600 dark:text-blue-400">20%</p>
+                <p className="text-xl font-semibold text-blue-600 dark:text-blue-400">10%</p>
               </div>
               <div className="bg-gradient-to-br from-green-50 to-emerald-50/70 dark:from-green-900/30 dark:to-emerald-900/20 p-4 rounded-lg border border-green-100 dark:border-green-900/30 shadow-sm">
                 <h5 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Operational Costs</h5>
@@ -826,14 +855,17 @@ const TokenTabContent = ({ navigateToAppSection }) => {
                 >
                   Explore Governance
                 </button>
-                <button
-                  onClick={() => window.open('https://etherscan.io/address/0xb0bCE9452329EC979CF7BA06801dDa070FF8b835', '_blank')}
-                  className="px-6 py-3 border border-indigo-600 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-md shadow-sm transition-colors flex items-center"
-                  type="button"
-                >
-                  View Token Contract
-                  <ExternalLink className="h-4 w-4 ml-2" />
-                </button>
+               <button
+			  onClick={() => {
+				const tokenAddress = process.env.REACT_APP_TOKEN_ADDRESS || "Could not load token address!";
+				window.open(`https://etherscan.io/address/${tokenAddress}`, '_blank');
+			  }}
+			  className="px-6 py-3 border border-indigo-600 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-md shadow-sm transition-colors flex items-center"
+			  type="button"
+			>
+			  View Token Contract
+			  <ExternalLink className="h-4 w-4 ml-2" />
+				</button>			
               </>
             )}
           </div>

@@ -7,7 +7,7 @@
  */
 export const WALLET_CONNECT_PROJECT_ID = process.env.REACT_APP_WALLET_CONNECT_PROJECT_ID || 
                                         process.env.WALLET_CONNECT_PROJECT_ID || 
-                                        'f11adfc48c8acb17d113a5897f96b179'; // Replace with your default project ID
+                                        'Could not load Wallet Connect ID'; // Replace with your default project ID
                                         
 export const handleWalletConnectSession = (session) => {
   if (!session) return null;

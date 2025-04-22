@@ -84,10 +84,12 @@ const ModalVoteStatus = ({ proposalId, hasUserVoted, getUserVoteType, getVoteTyp
 
   if (checkingVote) {
     return (
+	
       <div className="mt-5 text-center text-sm flex items-center justify-center">
         <Loader size="small" className="mr-2" />
         <span>Checking your vote...</span>
       </div>
+	  
     );
   }
   
@@ -487,6 +489,7 @@ const VoteData = ({ proposalId, showDetailedInfo = false }) => {
   
     if (voteData.loading) {
       return (
+
         <div className="flex justify-center items-center py-4">
           <Loader size="small" className="mr-2" />
           <span className="text-sm text-gray-500 dark:text-gray-400">Loading vote data...</span>
@@ -633,11 +636,14 @@ const VoteData = ({ proposalId, showDetailedInfo = false }) => {
   };
 
 // Enhanced QuorumProgress component with consistent theme color
-const QuorumProgress = ({ proposalId, quorum }) => {
+
+const QuorumProgress = ({ proposalId, quorum, showWarningIfNeeded = false, proposalState }) => {
   const { contracts, contractsReady } = useWeb3();
   const [progress, setProgress] = useState(0);
   const [voteCount, setVoteCount] = useState("0");
   const [loading, setLoading] = useState(true);
+  // Add state to track if warning should be visible (for delayed display)
+  const [warningVisible, setWarningVisible] = useState(false);
   
   // Add a ref to track the last refresh timestamp
   const lastRefreshRef = useRef(0);
@@ -645,6 +651,7 @@ const QuorumProgress = ({ proposalId, quorum }) => {
   // Reference to track if component is mounted
   const mountedRef = useRef(true);
   const timerRef = useRef(null);
+  const warningTimerRef = useRef(null);
   
   // Define formatNumberDisplay locally within the component
   const formatNumberDisplay = useCallback((value) => {
@@ -734,6 +741,12 @@ const QuorumProgress = ({ proposalId, quorum }) => {
     }
   }, [contractsReady, contracts.governance, proposalId, quorumValue]);
   
+  useEffect(() => {
+    if (mountedRef.current) {
+      fetchQuorumData(true); // Force refresh when refreshKey changes
+    }
+  }, [fetchQuorumData, /* Add refreshKey here if passed as prop */]);// Enhanced QuorumProgress component with consistent theme color and quorum warning
+  
   // Listen for global refresh events
   useEffect(() => {
     // Create the event listener
@@ -785,12 +798,59 @@ const QuorumProgress = ({ proposalId, quorum }) => {
     };
   }, [proposalId, fetchQuorumData, isProposalActive]);
   
-  // Also react to changes in refreshKey if provided
+  // Fix for the delay effect which had an error in the condition
   useEffect(() => {
-    if (mountedRef.current) {
-      fetchQuorumData(true); // Force refresh when refreshKey changes
+    // Only start the delay timer when loaded and conditions for showing the warning are met
+    if (!loading && !warningVisible) {
+      const isActive = proposalState === PROPOSAL_STATES.ACTIVE;
+      const shouldShowWarning = !isActive && progress < 100;
+      
+      if (shouldShowWarning && showWarningIfNeeded) {
+        // Clear any existing timer first
+        if (warningTimerRef.current) {
+          clearTimeout(warningTimerRef.current);
+        }
+        
+        // Set a new timer to show the warning after a delay
+        warningTimerRef.current = setTimeout(() => {
+          if (mountedRef.current) {
+            setWarningVisible(true);
+          }
+        }, 800); // 800ms delay - enough time for other UI elements to render
+      }
     }
-  }, [fetchQuorumData, /* Add refreshKey here if passed as prop */]);
+    
+    return () => {
+      if (warningTimerRef.current) {
+        clearTimeout(warningTimerRef.current);
+      }
+    };
+  }, [loading, progress, proposalState, showWarningIfNeeded, PROPOSAL_STATES]);
+  
+  // Clean up timers on unmount
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false;
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+      if (warningTimerRef.current) {
+        clearTimeout(warningTimerRef.current);
+        warningTimerRef.current = null;
+      }
+    };
+  }, []);
+  // Determine if we should show the quorum not met warning
+  const showQuorumWarning = useMemo(() => {
+    if (!showWarningIfNeeded) return false;
+    
+    // Show warning for any non-active proposal that didn't meet quorum
+    // Including defeated proposals, as they might have been defeated due to insufficient quorum
+    const isActive = proposalState === PROPOSAL_STATES.ACTIVE;
+    
+    return !isActive && progress < 100 && warningVisible;
+  }, [showWarningIfNeeded, proposalState, progress, PROPOSAL_STATES, warningVisible]);
   
   return (
     <div>
@@ -816,6 +876,20 @@ const QuorumProgress = ({ proposalId, quorum }) => {
           </span>
         )}
       </div>
+      
+      {/* Quorum warning message - centered with width fitting content */}
+      {showQuorumWarning && (
+        <div className="mt-2 flex justify-center">
+          <div className="py-1.5 px-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded text-xs inline-flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-amber-500 dark:text-amber-400 mr-1.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+            </svg>
+            <span className="text-amber-700 dark:text-amber-400">
+              Quorum not met: {formatNumberDisplay(voteCount)}/{formatNumberDisplay(quorum)} JST required
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -1779,27 +1853,43 @@ const VoteTab = ({
 
   // Rest of the component (UI rendering)
   return (
-    <div>
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-7">
-          <div className="flex flex-wrap gap-3 justify-center items-center">
-            {['active', 'voted', 'all'].map(filter => (
-          <button
-            key={filter}
-            className={`px-4 py-2 rounded-full text-sm ${
-              voteFilter === filter 
-            ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 font-medium' 
-            : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
-            }`}
-            onClick={() => {
-                setVoteFilter(filter);
-                setCurrentPage(1); // Reset to the first page on filter change
-              }}
-            >
-              {filter.charAt(0).toUpperCase() + filter.slice(1)}
-            </button>
-          ))}
-        </div>
-      </div>
+			<div >
+		  <div className="relative w-full ">
+			<div className="flex flex-col justify-between items-start gap-2 mb-6">
+			  <div className="flex-grow space-y-1">
+				<h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">
+				  Vote
+				</h2>
+				<p className="text-sm text-gray-500 dark:text-gray-400 max-w-xl">
+				  Review and vote on active proposals
+				</p>
+			  </div>
+			</div>
+
+			{/* Move the filter here, outside the flex row */}
+			<div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-7 w-full">
+			  <div className="flex flex-wrap gap-3 justify-center items-center">
+				{['active', 'voted', 'all'].map(filter => (
+				  <button
+					key={filter}
+					className={`px-4 py-2 rounded-full text-sm ${
+					  voteFilter === filter 
+						? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 font-medium' 
+						: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+					}`}
+					onClick={() => {
+					  setVoteFilter(filter);
+					  setCurrentPage(1); // Reset to the first page on filter change
+					}}
+				  >
+					{filter.charAt(0).toUpperCase() + filter.slice(1)}
+				  </button>
+				))}
+			  </div>
+			</div>
+		  </div>
+
+
       
       {/* Voting cards */}
       <div className="space-y-8">
@@ -1980,14 +2070,18 @@ const VoteTab = ({
                 <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Voting Results</h4>
                 <div className="bg-gray-50 dark:bg-gray-900/50 p-4 rounded border dark:border-gray-700">
                   <VoteData proposalId={selectedProposal.id} showDetailedInfo={true} />
-                  
-                  {/* Quorum progress */}
-                  {govParams.quorum > 0 && selectedProposal.state !== PROPOSAL_STATES.DEFEATED && (
-                    <div className="mt-4 mb-5">
-                      <h5 className="text-sm font-medium mb-2 dark:text-gray-300">Quorum Progress</h5>
-                      <QuorumProgress proposalId={selectedProposal.id} quorum={govParams.quorum} />
-                    </div>
-                  )}
+                 {/* Quorum progress */}
+					{govParams.quorum > 0 && (
+					  <div className="mt-4 mb-5">
+						<h5 className="text-sm font-medium mb-2 dark:text-gray-300">Quorum Progress</h5>
+						<QuorumProgress 
+						  proposalId={selectedProposal.id} 
+						  quorum={govParams.quorum} 
+						  showWarningIfNeeded={true}
+						  proposalState={selectedProposal.state}
+						/>
+					  </div>
+					)}
                   
                   {/* Use ModalVoteStatus component to handle async vote checking */}
                   <ModalVoteStatus 

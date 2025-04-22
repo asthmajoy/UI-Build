@@ -2,16 +2,25 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://explorer-api.walletconnect.com https://* http://*; connect-src 'self' https://*.walletconnect.com wss://*.walletconnect.com https://ethereum.infura.io https://* wss://*; font-src 'self' data:; frame-src 'self' https://verify.walletconnect.com https://*.walletconnect.com https://*; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://explorer-api.walletconnect.com https://* http://*; connect-src 'self' https://*.walletconnect.com wss://*.walletconnect.com wss://relay.walletconnect.com https://ethereum.infura.io https://* wss://*; font-src 'self' data:; frame-src 'self' https://verify.walletconnect.com https://verify.walletconnect.org https://*.walletconnect.com https://*; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;" />
+
+    <!-- Favicons -->
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/images/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/images/favicon-32x32.png" />
+    <link rel="icon" type="image/x-icon" href="%PUBLIC_URL%/images/favicon.ico" sizes="any" />
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/images/apple-touch-icon.png" />
+
+    <!-- Manifest -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <!-- Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="JustDAO Dashboard - Governance Interface for the JustDAO"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <meta name="description" content="JustDAO Dashboard - Governance Interface for the JustDAO" />
+
     <title>JustDAO Dashboard</title>
   </head>
   <body>

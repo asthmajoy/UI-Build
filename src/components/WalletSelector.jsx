@@ -36,36 +36,36 @@ const WalletSelector = ({ onClose, connectWallet: externalConnectWallet }) => {
   } = detectWallets ? detectWallets() : {};
   
   // Define wallet options
-  const wallets = [
-    {
-      id: 'metamask',
-      name: 'MetaMask',
-      icon: './images/metamask.svg',
-      description: 'Connect using MetaMask',
-      isAvailable: isWalletAvailable ? () => isWalletAvailable('metamask') : isMetaMaskAvailable
-    },
-    {
-      id: 'coinbase',
-      name: 'Coinbase Wallet',
-      icon: './images/coinbase.svg',
-      description: 'Connect using Coinbase Wallet',
-      isAvailable: isWalletAvailable ? () => isWalletAvailable('coinbase') : isCoinbaseWalletAvailable
-    },
-    {
-      id: 'trustwallet',
-      name: 'Trust Wallet',
-      icon: './images/trustwallet.svg',
-      description: 'Connect using Trust Wallet',
-      isAvailable: isWalletAvailable ? () => isWalletAvailable('trustwallet') : isTrustWalletAvailable
-    },
-    {
-      id: 'walletconnect',
-      name: 'WalletConnect',
-      icon: './images/walletconnect.svg',
-      description: 'Connect using WalletConnect',
-      isAvailable: () => true // Always available
-    }
-  ];
+	  const wallets = [
+	  {
+		id: 'metamask',
+		name: 'MetaMask',
+		icon: resolveImagePath('metamask.svg'),
+		description: 'Connect using MetaMask',
+		isAvailable: isWalletAvailable ? () => isWalletAvailable('metamask') : isMetaMaskAvailable
+	  },
+	  {
+		id: 'coinbase',
+		name: 'Coinbase Wallet',
+		icon: resolveImagePath('coinbase.svg'),
+		description: 'Connect using Coinbase Wallet',
+		isAvailable: isWalletAvailable ? () => isWalletAvailable('coinbase') : isCoinbaseWalletAvailable
+	  },
+	  {
+		id: 'trustwallet',
+		name: 'Trust Wallet',
+		icon: resolveImagePath('trustwallet.svg'),
+		description: 'Connect using Trust Wallet',
+		isAvailable: isWalletAvailable ? () => isWalletAvailable('trustwallet') : isTrustWalletAvailable
+	  },
+	  {
+		id: 'walletconnect',
+		name: 'WalletConnect',
+		icon: resolveImagePath('walletconnect.svg'),
+		description: 'Connect using WalletConnect',
+		isAvailable: () => true
+	  }
+	];
   
   // Filter available wallets
   const availableWallets = wallets.filter(wallet => {
@@ -239,6 +239,8 @@ const WalletSelector = ({ onClose, connectWallet: externalConnectWallet }) => {
     }
   };
   
+
+  
   return (
     <div 
       className="fixed inset-0 bg-gradient-to-br from-indigo-50/80 via-white to-purple-50/80 dark:from-indigo-950/80 dark:via-gray-900 dark:to-purple-950/80 flex items-center justify-center z-50 p-4"
@@ -392,6 +394,10 @@ const WalletSelector = ({ onClose, connectWallet: externalConnectWallet }) => {
       </div>
     </div>
   );
+};
+
+  const resolveImagePath = (relativePath) => {
+  return `${process.env.PUBLIC_URL || ''}/images/${relativePath}`;
 };
 
 export default WalletSelector;

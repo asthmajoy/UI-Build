@@ -109,6 +109,12 @@ const JustDAOLandingPage = ({ onNavigateToMain }) => {
   const [zoomScale, setZoomScale] = useState(1.25);
   const [navScale, setNavScale] = useState(1);
 
+	const resolveImagePath = (filename) => {
+  // PUBLIC_URL is set automatically by CRA during build
+  const base = process.env.PUBLIC_URL || '';
+  return `${base}/images/${filename}`;
+};
+
   // Update zoom scale and nav scale on resize
   useEffect(() => {
     const handleResize = () => {
@@ -137,27 +143,31 @@ const JustDAOLandingPage = ({ onNavigateToMain }) => {
       <div className="relative h-[35vh] md:h-[45vh] lg:h-[55vh] w-full overflow-hidden">
         {/* Desktop version with smooth transition */}
         <div className="absolute inset-0 hidden sm:block">
-          <img 
-            src="SCOTUS.png" 
-            alt="Supreme Court" 
-            className="absolute inset-0 w-full h-full object-cover object-top transition-all duration-300 ease-out"
-          />
+		
+        <img 
+		  src={resolveImagePath("supreme-court.png")} 
+		  alt="Supreme Court" 
+		  className="absolute inset-0 w-full h-full object-cover object-top transition-all duration-300 ease-out"
+		/>
+
+		console.log("Image path:", resolveImagePath("supreme-court.png"));
+
           <div className="absolute inset-0 bg-indigo-900/10 dark:bg-indigo-950/20 transition-all duration-300 ease-out"></div>
         </div>
 
         {/* Mobile version with enhanced dynamic zoom effect and increased opacity */}
         <div className="absolute inset-0 sm:hidden">
           <div className="absolute inset-0 w-full h-full overflow-hidden">
-            <img 
-              src="Small.png" 
-              alt="Supreme Court Mobile" 
-              className="absolute inset-0 w-full h-full object-cover object-right transform-gpu"
-              style={{ 
-                transform: `scale(${zoomScale})`, 
-                transformOrigin: 'center 50%', /* Moved crop up slightly */
-                transition: 'transform 0.3s ease-out'
-              }}
-            />
+         <img 
+		  src={resolveImagePath("mobile-supreme-court.png")} 
+		  alt="Supreme Court Mobile" 
+		  className="absolute inset-0 w-full h-full object-cover object-right transform-gpu"
+		  style={{ 
+			transform: `scale(${zoomScale})`, 
+			transformOrigin: 'center 50%', 
+			transition: 'transform 0.3s ease-out'
+		  }}
+		/>
             <div 
               className="absolute inset-0 bg-indigo-900/20 dark:bg-indigo-950/30"
               style={{ 

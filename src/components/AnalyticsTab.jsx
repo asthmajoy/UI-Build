@@ -204,27 +204,60 @@ const AnalyticsTab = () => {
   }, [contractsReady, contracts, account, provider]);
 
   // Load Current Stats data from JSON file
-  const loadCurrentStatsData = useCallback(async () => {
-    if (isCacheValid('currentStats')) {
-      if (isMountedRef.current) {
-        setCurrentStatsData(cacheRef.current.currentStats.data);
-        setCurrentStatsLastUpdated(new Date(cacheRef.current.currentStats.timestamp));
-        return;
-      }
+ const loadCurrentStatsData = useCallback(async () => {
+  if (isCacheValid('currentStats')) {
+    if (isMountedRef.current) {
+      setCurrentStatsData(cacheRef.current.currentStats.data);
+      setCurrentStatsLastUpdated(new Date(cacheRef.current.currentStats.timestamp));
+      return;
     }
-    
-    setLoadingCurrentStats(true);
-    setError(null);
-    
+  }
+  
+  setLoadingCurrentStats(true);
+  setError(null);
+  
+  // Define multiple possible paths to try
+  const possiblePaths = [
+    '/my-react-app/data/current-stats.json',
+    './data/current-stats.json',
+    '../data/current-stats.json',
+    'data/current-stats.json',
+    `${window.location.origin}/data/current-stats.json`,
+    `${window.location.origin}/my-react-app/data/current-stats.json`
+  ];
+  
+  let lastError = null;
+  
+  // Try each path until we get a valid response
+  for (const path of possiblePaths) {
     try {
-      // Path to the JSON file - you can adjust this based on your project structure
-      const response = await fetch('/data/current-stats.json');
+      console.log(`Attempting to fetch stats from: ${path}`);
+      
+      const response = await fetch(path, {
+        headers: {
+          'Accept': 'application/json',
+        },
+        method: 'GET',
+        cache: 'no-cache'
+      });
       
       if (!response.ok) {
-        throw new Error(`Failed to fetch current stats: ${response.status} ${response.statusText}`);
+        console.log(`Failed fetch from ${path}: ${response.status} ${response.statusText}`);
+        continue; // Try next path
       }
       
-      const data = await response.json();
+      // Read the response as text first to check for HTML content
+      const text = await response.text();
+      
+      // Check if we got HTML instead of JSON
+      if (text.trim().startsWith('<')) {
+        console.log(`Received HTML instead of JSON from ${path}`, text.substring(0, 100));
+        continue; // Try next path
+      }
+      
+      // Parse the JSON manually since we already consumed the response as text
+      const data = JSON.parse(text);
+      console.log(`Successfully loaded stats from: ${path}`);
       
       // Update last modified date if available from headers
       let lastModified;
@@ -242,14 +275,23 @@ const AnalyticsTab = () => {
         setCurrentStatsLastUpdated(lastModified);
         setLoadingCurrentStats(false);
       }
-    } catch (error) {
-      console.error("Error loading current stats:", error);
-      if (isMountedRef.current) {
-        setError(`Failed to load current stats: ${error.message}`);
-        setLoadingCurrentStats(false);
-      }
+      
+      // We succeeded, so return early
+      return;
+    } catch (err) {
+      console.error(`Error fetching from ${path}:`, err);
+      lastError = err;
+      // Continue to try next path
     }
-  }, [isCacheValid, updateCache]);
+  }
+  
+  // If we get here, all paths failed
+  console.error("All fetch attempts failed. Check that your JSON file exists and is accessible.");
+  if (isMountedRef.current) {
+    setError(`Failed to load current stats: ${lastError?.message || 'Could not access file'}`);
+    setLoadingCurrentStats(false);
+  }
+}, [isCacheValid, updateCache]);
 
   const loadDelegationAnalytics = useCallback(async () => {
     if (!contractsReady || !contracts.justToken) {
@@ -1110,18 +1152,18 @@ const AnalyticsTab = () => {
   
   // Main render function
   return (
-    <div className="p-5 max-w-7xl mx-auto">
-      <div className="flex items-center mb-6">
-        <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-200">DAO Governance Analytics</h2>
-        <div className="ml-auto">
-          {!loading && connectionDetails && connectionDetails.connected && (
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 mr-1.5"></span>
-              Connected
-            </span>
-          )}
+	   <div className="relative w-full">
+      <div className="flex flex-col justify-between items-start gap-2 mb-4">
+        <div className="flex-grow space-y-1">
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">DAO Governance Analytics</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-xl">
+		Only JST token holders are allowed access            </p>
+        </div>
+        <div>
+       
         </div>
       </div>
+
       
       {!contractsReady && selectedMetric !== 'currentStats' && (
         <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 text-amber-700 dark:text-amber-300 px-4 py-3 rounded-lg mb-6 flex items-center">

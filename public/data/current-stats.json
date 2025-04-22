@@ -1,52 +1,55 @@
 {
   "financialMetrics": {
-    "totalFundsDistributed": "0",
-    "estimatedUsdValue": 0,
-    "treasuryGrowthRate": "0",
-    "treasuryGrowthChange": "0",
+    "totalFundsDistributed": "245",
+    "estimatedUsdValue": 478000,
+    "treasuryGrowthRate": "1.8",
+    "treasuryGrowthChange": "0.5",
     "fundsDistributedTrend": "up",
-    "fundsDistributedChange": "0",
-    "circulatingSupply": "0",
-    "totalSupply": "0",
-    "tokenContract": "0xb0bCE9452329EC979CF7BA06801dDa070FF8b835"
+    "fundsDistributedChange": "3.2",
+    "circulatingSupply": "245000",
+    "totalSupply": "10000000"
   },
   "governanceMetrics": {
-    "activeInitiatives": 0,
-    "successRate": "0%",
-    "activeProposals": 0,
-    "totalProposals": 0,
-    "avgExecutionTime": "0",
+    "activeInitiatives": 3,
+      "avgCost": "$2500",
     "initiativeDistribution": {
-      "housing": 0,
-      "family": 0,
-      "immigration": 0,
-      "consumer": 0
+      "housing": 40,
+      "family": 30,
+      "immigration": 20,
+      "consumer": 10
     }
   },
   "communityMetrics": {
-    "totalMembers": 0,
-    "newMembersLastMonth": 0,
+    "totalMembers": 156,
+    "newMembersLastMonth": 34,
     "membershipTrend": "up",
-    "participationRate": "0%",
-    "giniCoefficient": "0",
-    "delegationStabilityIndex": 0,
-    "forumPosts": 0,
-    "discordMembers": 0
+    "participationRate": "28%",
+    "delegationStabilityIndex": 4,
+    "forumPosts": 124,
+    "discordMembers": 98,
+    "forumThreads": 32,
+    "newThreadsLastMonth": 12,
+    "activeForumUsers": 27,
+    "forumEngagementRate": "21%",
+    "mostActiveTopicTitle": "Community Onboarding Guide",
+    "mostActiveTopicPosts": 18,
+    "newPostsLastMonth": 52,
+    "discordActiveUsers": 42
   },
   "impactMetrics": {
     "casesResolved": {
-      "total": 0,
+      "total": 27,
       "quarterly": {
-        "q1": 0,
-        "q2": 0,
+        "q1": 12,
+        "q2": 15,
         "q3": 0,
         "q4": 0
       },
       "byType": {
-        "housing": 0,
-        "family": 0,
-        "immigration": 0,
-        "consumer": 0
+        "housing": 12,
+        "family": 8,
+        "immigration": 5,
+        "consumer": 2
       }
     },
     "externalAnalysis": {
@@ -59,9 +62,13 @@
     },
     "impactAssessment": {
       "monetaryBenefit": {
-        "total": 0,
-        "average": 0
-      }
+        "total": 124000,
+        "average": 4590
+      },
+      "clientSatisfaction": 92,
+      "volunteerHours": 340,
+      "referralRate": 64,
+      "communityPartners": 8
     }
   }
 }

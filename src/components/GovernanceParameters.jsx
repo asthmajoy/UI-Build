@@ -43,27 +43,27 @@ const GovernanceParameters = ({ govParams, timelockAnalytics, formatTimeDuration
             <div className="flex-1 md:border-r dark:md:border-r-slate-700">
               <div className="h-full flex flex-col">
                 <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 border-b border-indigo-100 dark:border-indigo-800/30">
-                  <h4 className="text-sm font-medium text-indigo-800 dark:text-indigo-200 flex items-center text-left md:text-center md:justify-center">
+                  <h4 className="text-sm font-medium text-slate-800 dark:text-white flex items-center text-left md:text-center md:justify-center">
                     Core Parameters
                   </h4>
                 </div>
                 <div className="flex-grow p-3">
                   <ul className="space-y-0 text-sm divide-y divide-slate-100 dark:divide-slate-700/50">
                     <li className="flex justify-between py-2 hover:bg-slate-50 dark:hover:bg-slate-700/30 px-2 rounded transition-colors">
-                      <span className="text-slate-600 dark:text-slate-400">Quorum</span>
-                      <span className="font-medium text-slate-800 dark:text-slate-200">{govParams.formattedQuorum} JST</span>
+                      <span className="text-slate-600 dark:text-slate-400 text-left">Quorum</span>
+                      <span className="font-medium text-slate-800 dark:text-slate-200 text-right">{govParams.formattedQuorum} JST</span>
                     </li>
                     <li className="flex justify-between py-2 hover:bg-slate-50 dark:hover:bg-slate-700/30 px-2 rounded transition-colors">
-                      <span className="text-slate-600 dark:text-slate-400">Voting Duration</span>
-                      <span className="font-medium text-slate-800 dark:text-slate-200">{govParams.formattedDuration}</span>
+                      <span className="text-slate-600 dark:text-slate-400 text-left">Voting Duration</span>
+                      <span className="font-medium text-slate-800 dark:text-slate-200 text-right">{govParams.formattedDuration}</span>
                     </li>
                     <li className="flex justify-between py-2 hover:bg-slate-50 dark:hover:bg-slate-700/30 px-2 rounded transition-colors">
-                      <span className="text-slate-600 dark:text-slate-400">Proposal Threshold</span>
-                      <span className="font-medium text-slate-800 dark:text-slate-200">{govParams.formattedThreshold} JST</span>
+                      <span className="text-slate-600 dark:text-slate-400 text-left">Proposal Threshold</span>
+                      <span className="font-medium text-slate-800 dark:text-slate-200 text-right">{govParams.formattedThreshold} JST</span>
                     </li>
                     <li className="flex justify-between py-2 hover:bg-slate-50 dark:hover:bg-slate-700/30 px-2 rounded transition-colors">
-                      <span className="text-slate-600 dark:text-slate-400">Proposal Stake</span>
-                      <span className="font-medium text-slate-800 dark:text-slate-200">{govParams.formattedStake} JST</span>
+                      <span className="text-slate-600 dark:text-slate-400 text-left">Proposal Stake</span>
+                      <span className="font-medium text-slate-800 dark:text-slate-200 text-right">{govParams.formattedStake} JST</span>
                     </li>
                   </ul>
                 </div>
@@ -74,32 +74,29 @@ const GovernanceParameters = ({ govParams, timelockAnalytics, formatTimeDuration
             <div className="flex-1 md:border-r dark:md:border-r-slate-700 border-t md:border-t-0 dark:border-t-slate-700">
               <div className="h-full flex flex-col">
                 <div className="p-3 bg-amber-50 dark:bg-amber-900/20 border-b border-amber-100 dark:border-amber-800/30">
-                  <h4 className="text-sm font-medium text-amber-800 dark:text-amber-200 flex items-center text-left md:text-center md:justify-center">
+                  <h4 className="text-sm font-medium text-slate-800 dark:text-white flex items-center text-left md:text-center md:justify-center">
                     Threat Levels
                   </h4>
                 </div>
                 <div className="flex-grow p-3">
                   <ul className="space-y-0 text-sm divide-y divide-slate-100 dark:divide-slate-700/50">
                     <li className="flex justify-between py-2 hover:bg-slate-50 dark:hover:bg-slate-700/30 px-2 rounded transition-colors">
-                      <span className="text-emerald-600 dark:text-emerald-400 flex items-center">
-                        <span className="inline-block w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>
+                      <span className="text-emerald-600 dark:text-emerald-400 text-left">
                         Low Threat
                       </span>
-                      <span className="font-medium text-slate-800 dark:text-slate-200">{formatTimeDuration(threatLevelDelays[0] || 0)}</span>
+                      <span className="font-medium text-slate-800 dark:text-slate-200 text-right">{formatTimeDuration(threatLevelDelays[0] || 0)}</span>
                     </li>
                     <li className="flex justify-between py-2 hover:bg-slate-50 dark:hover:bg-slate-700/30 px-2 rounded transition-colors">
-                      <span className="text-amber-600 dark:text-amber-400 flex items-center">
-                        <span className="inline-block w-2 h-2 bg-amber-500 rounded-full mr-2"></span>
+                      <span className="text-amber-600 dark:text-amber-400 text-left">
                         Medium Threat
                       </span>
-                      <span className="font-medium text-slate-800 dark:text-slate-200">{formatTimeDuration(threatLevelDelays[1] || 0)}</span>
+                      <span className="font-medium text-slate-800 dark:text-slate-200 text-right">{formatTimeDuration(threatLevelDelays[1] || 0)}</span>
                     </li>
                     <li className="flex justify-between py-2 hover:bg-slate-50 dark:hover:bg-slate-700/30 px-2 rounded transition-colors">
-                      <span className="text-rose-600 dark:text-rose-400 flex items-center">
-                        <span className="inline-block w-2 h-2 bg-rose-500 rounded-full mr-2"></span>
+                      <span className="text-rose-600 dark:text-rose-400 text-left">
                         High Threat
                       </span>
-                      <span className="font-medium text-slate-800 dark:text-slate-200">{formatTimeDuration(threatLevelDelays[2] || 0)}</span>
+                      <span className="font-medium text-slate-800 dark:text-slate-200 text-right">{formatTimeDuration(threatLevelDelays[2] || 0)}</span>
                     </li>
                   </ul>
                 </div>
@@ -110,32 +107,29 @@ const GovernanceParameters = ({ govParams, timelockAnalytics, formatTimeDuration
 			<div className="flex-1 md:border-r dark:md:border-r-slate-700 border-t md:border-t-0 dark:border-t-slate-700 ">
 			  <div className="h-full flex flex-col">
 				<div className="p-3 bg-purple-50 dark:bg-purple-900/20 border-b border-purple-100 dark:border-purple-800/30">
-				  <h4 className="text-sm font-medium text-purple-800 dark:text-purple-200 flex items-center text-left md:text-center md:justify-center">
+				  <h4 className="text-sm font-medium text-slate-800 dark:text-white flex items-center text-left md:text-center md:justify-center">
 					Refund Percentages
 				  </h4>
 				</div>
 				<div className="flex-grow p-3">
 				  <ul className="space-y-2 text-sm">
 					<li className="flex justify-between py-2 px-3 rounded-lg bg-red-100 dark:bg-red-900/40">
-					  <span className="text-red-800 dark:text-red-300 flex items-center">
-						<span className="inline-block w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+					  <span className="text-red-800 dark:text-red-300 text-left">
 						Defeated
 					  </span>
-					  <span className="font-medium text-red-800 dark:text-red-300">{govParams.defeatedRefundPercentage}%</span>
+					  <span className="font-medium text-red-800 dark:text-red-300 text-right">{govParams.defeatedRefundPercentage}%</span>
 					</li>
 					<li className="flex justify-between py-2 px-3 rounded-lg bg-gray-50 dark:bg-gray-700/60 border border-gray-200 dark:border-gray-600">
-					  <span className="text-gray-700 dark:text-gray-300 flex items-center">
-						<span className="inline-block w-2 h-2 bg-gray-500 rounded-full mr-2"></span>
+					  <span className="text-gray-700 dark:text-gray-300 text-left">
 						Canceled
 					  </span>
-					  <span className="font-medium text-gray-700 dark:text-gray-300">{govParams.canceledRefundPercentage}%</span>
+					  <span className="font-medium text-gray-700 dark:text-gray-300 text-right">{govParams.canceledRefundPercentage}%</span>
 					</li>
 					<li className="flex justify-between py-2 px-3 rounded-lg bg-gray-200 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-					  <span className="text-gray-800 dark:text-gray-200 flex items-center">
-						<span className="inline-block w-2 h-2 bg-gray-700 rounded-full mr-2"></span>
+					  <span className="text-gray-800 dark:text-gray-200 text-left">
 						Expired
 					  </span>
-					  <span className="font-medium text-gray-800 dark:text-gray-200">{govParams.expiredRefundPercentage}%</span>
+					  <span className="font-medium text-gray-800 dark:text-gray-200 text-right">{govParams.expiredRefundPercentage}%</span>
 					</li>
 				  </ul>
 				</div>
@@ -146,27 +140,27 @@ const GovernanceParameters = ({ govParams, timelockAnalytics, formatTimeDuration
             <div className="flex-1 border-t md:border-t-0 dark:border-t-slate-700">
               <div className="h-full flex flex-col">
                 <div className="p-3 bg-blue-50 dark:bg-blue-900/20 border-b border-blue-100 dark:border-blue-800/30">
-                  <h4 className="text-sm font-medium text-blue-800 dark:text-blue-200 flex items-center text-left md:text-center md:justify-center">
+                  <h4 className="text-sm font-medium text-slate-800 dark:text-white flex items-center text-left md:text-center md:justify-center">
                     Timelock
                   </h4>
                 </div>
                 <div className="flex-grow p-3">
                   <ul className="space-y-0 text-sm divide-y divide-slate-100 dark:divide-slate-700/50">
                     <li className="flex justify-between py-2 hover:bg-slate-50 dark:hover:bg-slate-700/30 px-2 rounded transition-colors">
-                      <span className="text-slate-600 dark:text-slate-400">Min Delay</span>
-                      <span className="font-medium text-slate-800 dark:text-slate-200">
+                      <span className="text-slate-600 dark:text-slate-400 text-left">Min Delay</span>
+                      <span className="font-medium text-slate-800 dark:text-slate-200 text-right">
                         {timelockAnalytics ? formatDuration(timelockAnalytics.minDelay) : "Loading..."}
                       </span>
                     </li>
                     <li className="flex justify-between py-2 hover:bg-slate-50 dark:hover:bg-slate-700/30 px-2 rounded transition-colors">
-                      <span className="text-slate-600 dark:text-slate-400">Grace Period</span>
-                      <span className="font-medium text-slate-800 dark:text-slate-200">
+                      <span className="text-slate-600 dark:text-slate-400 text-left">Grace Period</span>
+                      <span className="font-medium text-slate-800 dark:text-slate-200 text-right">
                         {timelockAnalytics ? formatDuration(timelockAnalytics.gracePeriod) : "Loading..."}
                       </span>
                     </li>
                     <li className="flex justify-between py-2 hover:bg-slate-50 dark:hover:bg-slate-700/30 px-2 rounded transition-colors">
-                      <span className="text-slate-600 dark:text-slate-400">Executor Threshold</span>
-                      <span className="font-medium text-slate-800 dark:text-slate-200">
+                      <span className="text-slate-600 dark:text-slate-400 text-left">Executor Threshold</span>
+                      <span className="font-medium text-slate-800 dark:text-slate-200 text-right">
                         {timelockAnalytics ? formatTokenAmount(timelockAnalytics.executorThreshold) : "Loading..."} JST
                       </span>
                     </li>

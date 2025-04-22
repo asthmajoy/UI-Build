@@ -2459,7 +2459,7 @@ const renderTransactionNotifications = () => {
       <div className="relative w-full">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <div className="flex-grow space-y-1">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">
               Governance Proposals
             </h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 max-w-xl">

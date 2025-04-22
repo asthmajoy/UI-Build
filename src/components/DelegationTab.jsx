@@ -930,7 +930,7 @@ const DelegationTab = ({ user, delegation }) => {
   return (
     <div className="transition-colors duration-300">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">Delegation</h2>
+        <h3 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">Delegation</h3>
         <p className="text-gray-500 dark:text-gray-400 transition-colors duration-300 mt-1">
           Manage your voting power and delegate tokens for governance participation
         </p>

@@ -15,6 +15,7 @@ import {
   FileLock,
   Split,
   Gavel,
+  PersonStanding,
   ExternalLink} from 'lucide-react';
 
 const LegalIssueCard = ({ number, title, color, initialContent, expandedContent }) => {
@@ -209,7 +210,7 @@ const MissionTabContent = ({ navigateToAppSection }) => {
           Our Mission
         </h3>
         <p className="text-base leading-relaxed text-gray-800 dark:text-gray-200 mb-4">
-           <strong>JustDAO</strong> is designed to <span className="font-semibold text-indigo-600 dark:text-indigo-300">support legal aid in underserved communities</span>. Our platform enables <span className="font-semibold text-indigo-600 dark:text-indigo-300">community-driven initiatives</span> that facilitate <strong> legal advice, client referrals, and on-going representation </strong> between pro bono legal aid providers and individuals in need.
+           <strong>JustDAO</strong> is designed to <span className="font-semibold text-indigo-600 dark:text-indigo-300">support legal aid in underserved communities</span>. Our platform enables <span className="font-semibold text-indigo-600 dark:text-indigo-300">community-driven initiatives</span> that facilitate <i><b> legal advice, client referrals, and on-going representation </b></i> between pro bono legal aid providers and individuals in need.
         </p>
         <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
         
@@ -225,11 +226,11 @@ const MissionTabContent = ({ navigateToAppSection }) => {
           <div className="px-8 py-8">
             <div className="flex items-center space-x-4 mb-2">
 
-              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">The Divide: Unequal Access to Legal Representation</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white"> <strong>The Divide:</strong> Unequal Access to Legal Representation</h2>
             </div>
             
             <div className="bg-white/70 dark:bg-gray-800/40 rounded-lg p-6 mb-4 backdrop-blur-sm border border-gray-100 dark:border-gray-800/50">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Critical Challenge</h3>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2"><i>Critical Challenge</i></h3>
               <p className="text-gray-600 dark:text-gray-300">
               Millions of Americans face life-altering legal problems without the resources to secure proper legal guidance or representation. This creates a <strong>divide</strong> in our justice system which exacerbates inequality for vulnerable populations.              </p>
             </div>
@@ -290,8 +291,7 @@ const MissionTabContent = ({ navigateToAppSection }) => {
 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
   <div className="md:col-span-2 bg-white/70 dark:bg-gray-800/40 rounded-lg p-6 backdrop-blur-sm border border-gray-100 dark:border-gray-800/50 mb-4">
     <div className="flex items-center mb-4">
-      <h3 className="text-lg font-medium text-gray-900 dark:text-white">Unaddressed Legal Issues</h3>
-      <Gavel className="h-5 w-5 text-gray-900 dark:text-white mr-3 mx-3" />
+      <h3 className="text-lg font-medium text-gray-900 dark:text-white"> <i>Unaddressed Legal Issues</i></h3>
 
     </div>
     
@@ -415,7 +415,7 @@ const MissionTabContent = ({ navigateToAppSection }) => {
         <div className="bg-white/70 dark:bg-gray-800/40 rounded-lg p-6 backdrop-blur-sm border border-gray-100 dark:border-gray-800/50 col-span-2">
           <div className="flex items-center mb-4">
             <h3 className="text-xl font-medium text-red-600 dark:text-red-400 ">The Human Cost of Legal Aid Shortfalls</h3>
-            <Users className="h-6 w-6 text-red-600 dark:text-red-400 mr-3 mx-3" />
+            <PersonStanding className="h-6 w-6 text-red-600 dark:text-red-400 mr-3 mx-3" />
 
           </div>
           
@@ -573,11 +573,11 @@ const MissionTabContent = ({ navigateToAppSection }) => {
         <div className="rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-950">
           <div className="px-8 py-8">
             <div className="flex items-center space-x-4 mb-2">
-              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Bridging the Justice Divide: Fair and Equal Legal Advocacy Access</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Bridging the Justice <strong> Divide: </strong> Fair and Equal Legal Advocacy Access</h2>
             </div>
             
             <div className="bg-white/70 dark:bg-gray-800/40 rounded-lg p-6 mb-4 backdrop-blur-sm border border-gray-100 dark:border-gray-800/50">
-              <h3 className="text-lg font-medium text-indigo-600 dark:text-indigo-400 mb-2">Our Community-Driven Approach</h3>
+              <h3 className="text-lg font-medium text-indigo-600 dark:text-indigo-400 mb-2"><i>Our Approach...</i></h3>
               <p className="text-gray-700 dark:text-gray-300">
                  <strong>JustDAO</strong>  leverages blockchain technology to provide a new funding model for legal aid providers, creating a transparent, community-driven platform that helps direct financial resources to organizations serving those with legal needs.
               </p>
@@ -605,7 +605,7 @@ const MissionTabContent = ({ navigateToAppSection }) => {
                   </li>
                   <li className="flex items-start">
                     <span className="text-green-500 dark:text-green-400 mr-2 mt-1 flex-shrink-0">•</span>
-                    <span>Rapid response inititives for emerging legal challenges</span>
+                    <span>Community-prioritized response channels for time-sensitive legal challenges</span>
                   </li>
                 </ul>
               </div>
@@ -638,22 +638,21 @@ const MissionTabContent = ({ navigateToAppSection }) => {
             {/* COLLAPSIBLE SECTION 3: How JustDAO Helps Support Legal Aid */}
             <div className="bg-white/70 dark:bg-gray-800/40 rounded-lg p-6 backdrop-blur-sm border border-gray-100 dark:border-gray-800/50">
               <div className="flex items-center mb-4">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">How JustDAO Helps Support Legal Aid</h3>
-                <Target className="h-5 w-5 text-gray-900 dark:text-white mr-3 mx-3" />
+               <i><h3 className="text-lg font-medium text-gray-900 dark:text-white">How the DAO Supports Legal Aid</h3></i>
+				</div>
+				<p className="text-gray-600 dark:text-gray-400 mb-4">
+				  While <strong>JustDAO</strong> does not provide direct legal assistance, our platform—including a public-facing forum—serves as a bridge between individuals and legal aid providers. We empower legal organizations and advocates to deliver:
+				</p>
 
-              </div>
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
-              As a secondary support organization, <strong>JustDAO</strong>'s core mission is to empower legal aid organizations that provide:
-                            </p>
               
               <div className="space-y-4">
                 <SupportCard 
                   title="Family Law Assistance" 
                   icon={Users}
-                  initialContent="Support for organizations providing help with orders of protection, divorce, custody, and guardianships"
+                  initialContent="Support with protective orders, divorce judgments, custody agreements, and legal guardianships."
                   expandedContent={
                     <div className="space-y-2">
-                      <p>JustDAO helps fill critical service gaps in family law matters by supporting providers that:</p>
+                      <strong><p>JustDAO helps fill critical service gaps in family law matters by supporting providers that:</p></strong>
                       <ul className="list-disc pl-5 space-y-1">
                         <li>Offer emergency legal representation for domestic violence survivors</li>
                         <li>Guide parents through custody proceedings with child-centered advocacy</li>
@@ -670,15 +669,14 @@ const MissionTabContent = ({ navigateToAppSection }) => {
                 <SupportCard 
                   title="Landlord/Tenant Services" 
                   icon={Home}
-                  initialContent="Funding for legal aid groups assisting with eviction defense and housing condition issues"
+                  initialContent="Legal representation in landlord-tenant disputes, eviction proceedings and enforcement of habitability standards."
                   expandedContent={
                     <div className="space-y-2">
-                      <p>Housing security initiatives funded through JustDAO governance include:</p>
+                    <strong>  <p>Housing security initiatives prioritized through JustDAO governance include:</p></strong>
                       <ul className="list-disc pl-5 space-y-1">
-                        <li>Rapid response initiative for eviction defense</li>
+                        <li>Rapid response fund for eviction defense</li>
                         <li>Fair housing advocacy to combat discrimination in rental markets</li>
-                        <li>Technical assistance for tenants facing habitability issues and building code violations</li>
-                        <li>Community education workshops on tenant rights and responsibilities</li>
+                        <li>Support for community workshops on tenant rights and responsibilities</li>
                       </ul>
                       <div className="mt-2 p-2 bg-indigo-50 dark:bg-indigo-900/20 rounded text-xs">
                         <strong>Impact Highlight:</strong> Legal representation in eviction proceedings reduces displacement rates by up to 77%, helping maintain community stability and preventing homelessness.
@@ -693,7 +691,7 @@ const MissionTabContent = ({ navigateToAppSection }) => {
                   initialContent="Funding for legal aid providers working to expunge or seal eligible criminal records in state courts"
                   expandedContent={
                     <div className="space-y-2">
-                      <p>Record relief programs supported by JustDAO deliver transformative second chances through:</p>
+                   <strong>   <p>Record relief programs supported by JustDAO deliver transformative second chances through:</p>  </strong> 
                       <ul className="list-disc pl-5 space-y-1">
                         <li>Mass expungement clinics offering efficient record clearing for eligible individuals</li>
                         <li>Specialized assistance for complex cases requiring individual advocacy</li>
@@ -713,7 +711,7 @@ const MissionTabContent = ({ navigateToAppSection }) => {
                   initialContent="Support for legal advocacy regarding public benefits including SNAP, TANF, and disability benefits"
                   expandedContent={
                     <div className="space-y-2">
-                      <p>Benefits access programs funded through JustDAO governance include:</p>
+                      <strong>   <p>Benefits access programs funded through JustDAO governance include:</p>  </strong> 
                       <ul className="list-disc pl-5 space-y-1">
                         <li>Application assistance for complex benefits systems like SSDI and SSI</li>
                         <li>Administrative hearing representation for benefits denials and terminations</li>
@@ -729,7 +727,7 @@ const MissionTabContent = ({ navigateToAppSection }) => {
               </div>
               
               <p className="text-xs italic text-gray-500 dark:text-gray-400 mt-3 text-center">
-                Note: JustDAO only provides funding to legal aid organizations and does not offer legal services or legal advice directly.
+                Note: JustDAO only provides support for independent legal aid providers and does not offer legal services or legal advice directly.
               </p>
             </div>
             
@@ -778,7 +776,6 @@ const MissionTabContent = ({ navigateToAppSection }) => {
             <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-indigo-500 to-blue-500 dark:from-indigo-400 dark:to-blue-400"></div>
             <div className="relative">
               <div className="flex items-center mb-2">
-                <Award className="h-5 w-5 text-indigo-500 dark:text-indigo-400 mr-2" />
                 <h3 className="text-lg font-semibold text-indigo-600 dark:text-indigo-400">A Vision of More Accessible Justice</h3>
               </div>
               <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
